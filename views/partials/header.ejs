@@ -1,0 +1,43 @@
+<style>
+  .nav-link:hover {
+    font-weight: bold !important;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light w-100 mb-5">
+  <div class="container justify-content-start">
+    <a style="width: 60px;" class="navbar-brand d-inline-block" href="/"><img src="/static/images/logoTwo.gif" class="card-img-top rounded-circle mx-auto" alt="...">
+    </a>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a class="nav-link nav-link-style fw-semibold text-dark" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link fw-semibold text-dark"  href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link fw-semibold text-dark" href="/chat">ChatApp</a>
+      </li>
+      <% if (isAdmin==1) { %>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-dark" href="/admin">Admin</a>
+        </li>
+        <% } %>
+      </ul>
+      <ul class="navbar-nav mr-auto">
+        <% if (isAuth) { %>
+          <li class="nav-item">
+            <a class="nav-link  link-danger" href="/logout">Logout</a>
+          </li>
+          <% } %>
+          <% if (!isAuth) { %>
+            <li class="nav-item">
+              <a class="nav-link  link-primary" href="/login">Login</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link  link-primary" href="/signup">Sign Up</a>
+            </li>
+            <% } %>
+    </ul>
+  </div>
+</nav>

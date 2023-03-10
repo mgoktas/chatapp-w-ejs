@@ -1,0 +1,18 @@
+<script>
+    var txt_uname = document.getElementById('username_input')
+    var txt_pass = document.getElementById('password_input')
+    var btn_login = document.getElementById('button_login')
+
+    var u = txt_uname.value
+    var pw = txt_pass.value
+
+    btn_create.addEventListener('click', (p, pw2) => {
+
+    let html ='<div class="col-12 m-0 mx-4 mt-0 " id="alert-formy"><p><label class="form-label text-info alert-content mb-0 ">Username or password is wrong.</label></p></div>'
+    let div = document.getElementById('div_log')
+
+    if(p != pw2){
+    div.insertAdjacentHTML('beforeend',html)}
+    setTimeout(()=>{document.getElementById('alert-formy').remove()},4000)    
+})
+</script>

@@ -1,0 +1,19 @@
+<script>
+    var txt_pass1 = document.getElementById('password')
+    var txt_pass2 = document.getElementById('password2')
+    var btn_create = document.getElementById('create')
+
+    var p = txt_pass1.value
+    var pw2 = txt_pass2.value
+
+    btn_create.addEventListener('click', (p, pw2) => {
+
+    let html ='<div id="alert-formy" class="col-md-3 mb-2 w-100 mx-auto"><label class="form-label alert-content text-danger mb-0 fw-bolder">Password must match.</label></div>'
+    let form = document.getElementById('form_sign')
+        
+    
+    if(p == pw2){
+    form.insertAdjacentHTML('beforeend',html)}
+    setTimeout(()=>{document.getElementById('alert-formy').remove()},4000)    
+})
+</script>

@@ -1,0 +1,145 @@
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<%- include('./partials/chatCSS') %>
+<%- include('./partials/head') %>
+<style>.container {
+    padding-left: 150px !important;
+    padding-right: 150px !important;
+}</style>
+<div class="container">
+<div class="row clearfix" style="height: 700px;">
+    <div class="col-lg-12" style="height: 650px;">
+        <div class="card chat-app" style="height: 600px;">
+            <div id="plist" class="people-list p-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text m-2"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input  type="text" class="form-control border-dark rounded" placeholder="Search...">
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" style="height:540px; width:max-content; overflow: auto;" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-0 rounded-2" tabindex="0">
+                    <% for( user of users ) { %>
+                        <% if (user.id != userId) { %>
+                            <li class="clearfix users" onclick="myFunction('<%- user.name %>','<%- user.id %>', 'Last seen: <%- convertMsToTime((timeNow - user.lastLoginTime)) %> ago', '<%= user.img %>' )" id="">
+                                <img class="avatar-img" src="<%= user.img %>" alt="avatar">
+                                <div class="about">
+                                    <div class="name"><%= user.name %> </div>
+                                    <div class="status"> <i class="fa fa-circle offline"></i> left <%= convertMsToTime((timeNow - user.lastLoginTime)) %> ago </div>                                            
+                                </div>
+                            </li>  
+                        </a>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </ul>
+            </div>
+            <div class="chat" id="chat" style="opacity: 0;">
+                <div class="chat-header clearfix">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                <img src="" id="avatar" alt="avatar">
+                            </a>
+                            <div class="chat-about">
+                                <h6 id="merhaba" class="m-b-0">Aiden Chavez</h6>
+                                <small id="merhaba2">Last seen: <%= convertMsToTime((timeNow - user.lastLoginTime)) %> ago </small>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 hidden-sm text-right">
+                            <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                            <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                            <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                            <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                        </div>
+                    </div>
+                </div> 
+                <div class="chat-history" id="chat-history" style="opacity: 0; height: 430px;">
+                    
+                    <ul class="m-b-0">
+
+                        <div data-bs-spy="scroll" id="chat-history2" data-bs-target="#navbar-example2" style="max-height:420px; overflow: auto;" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+
+                    </div>
+                    </ul>
+                </div>
+                <form class="chat-message clearfix" method="post">
+                    <input type="hidden" id="useriduserid" name="sender" value="<%= userid %>">
+                    <input type="hidden" id="merhaba3" name="receiver" value="">
+                    <div class="input-group mb-0">
+                        <div class="input-group-prepend">
+                            <button type="submit" class="input-group-text w-75 m-2 border-primary"><i class="fa fa-send me-1"></i></button>
+                        </div>
+                        <input type="text" name="text" class="form-control border-success rounded" placeholder="Enter text here...">                                    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+<script>
+    async function myFunction(name, receiverId, date, img) {
+        var element = await document.getElementById('merhaba')
+        var element2 = await document.getElementById('merhaba2')
+        var element3 = await document.getElementById('merhaba3')
+        var element4 = await document.getElementById('chat')
+        var element5 = await document.getElementById('chat-history2')
+        var element8 = await document.getElementById('chat-history')
+        var element6 = await document.getElementById('useriduserid')
+        var element7 = await document.getElementById('avatar')
+
+        
+
+        // var element5 = await document.getElementById('chat-history')
+
+        element.innerText = name
+        element2.innerText = date
+        element3.value = receiverId
+        element4.style.opacity = 1
+        element7.src = img
+
+        // await getMessages(receiverId)
+
+        var messages = <%-messages%>;
+    
+        let html = ``;
+        let fl = 'float-left';;
+        console.log(receiverId)
+
+
+        for(msg of messages){
+
+            let userid = <%-userid%>;
+            let senderid = msg.senderId
+            console.log(receiverId)
+
+            if(receiverId ==  msg.senderId){
+                
+                element8.style.opacity = 1
+
+                html += `<li class="clearfix m-0 messagee">
+                                <div class="message-data">
+                                    <span class="message-data-time"></span>
+                                    <!-- <img src="" alt="avatar"> -->
+                                </div>
+                                <div class="message other-message ${fl}">  ${msg.msg}  </div>
+                    </li>`;
+            }
+                else if(senderid == userid && receiverId == msg.receiverId){
+                    fl = 'float-right';
+                    element8.style.opacity = 1
+                
+            html += `<li class="clearfix m-0 messagee">
+                                <div class="message-data">
+                                    <span class="message-data-time"></span>
+                                    <!-- <img src="" alt="avatar"> -->
+                                </div>
+                                <div class="message other-message ${fl}">  ${msg.msg}  </div>
+                    </li>`;}
+       
+        }
+        element5.innerHTML = html  
+        }
+</script>
+</div><%- include('./partials/footer') %>

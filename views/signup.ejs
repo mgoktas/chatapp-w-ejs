@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head'); %>
+<head>
+<body>
+  <header>
+    <%- include('./partials/headerSignIn', {page_name:'signup'}) %>
+  </header>
+  <style>
+    form.container {
+      width: 500px !important;
+    }
+
+    form input {
+      padding-top: 2px !important;
+      padding-bottom: 2px !important;
+      font-size: .9rem !important;
+    }
+
+    form label {
+      font-size: .8rem;
+    }
+
+    .container-sm {
+      width: 250px;
+    }
+  </style>
+    <form class="container border" method="post" id="signup_kform" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="">
+      <% if (typeof message != 'undefined') { %>
+        <div class="alert alert-content my-2 <%= message.class %>"><%= message.text %> 
+        </div>
+        <% } %>
+      <div class="row d-flex justify-content-between mb-0 container-sm mx-auto my-3" id="form_sign" >
+          <div class="col-md-12">
+            <div class="col-md-3 my-2 w-100 mx-auto">
+              <label for="username" class="form-label mb-0 fw-bolder ">Your name</label>
+              <input type="name" name="name" placeholder="Full name.." class="border border-1 form-control w-100 mx-auto rounded-1" id="name" name="name"  required>
+            </div>
+            <div class="col-md-3 my-2 w-100 mx-auto">
+              <label for="email" class="form-label mb-0 fw-bolder">Email</label>
+              <input type="email" name="email" class="border border-1 form-control w-100 mx-auto rounded-1" id="email" name="email" required>
+            </div>
+            <div class="col-md-3 my-2 w-100 mx-auto">
+              <label for="username" class="form-label mb-0 fw-bolder">Username</label>
+              <input type="text" name="username" class="border border-1 form-control w-100 mx-auto rounded-1" id="username" name="username"  required>
+            </div>
+            <div class="col-md-3 my-2 w-100 mx-auto">
+              <label for="image" class="form-label mb-0 fw-bolder">Profile Picture</label>
+              <input style="font-size: xx-small;" type="file" class="order border-1 form-control w-100 mx-auto rounded-1 w-25" id="pic" name="pic">
+            </div>
+            <div class="col-md-3 my-2 w-100 mx-auto">
+              <label for="password" class="form-label mb-0 fw-bolder">Password</label>
+              <input type="password" name="password" class="border border-1 form-control w-100 mx-auto rounded-1" id="password" name="password" value="....." required>
+            </div>
+            <div class="col-md-3 mt-2 w-100 mx-auto">
+              <label for="password_check" class="form-label mb-0 fw-bolder">Re-enter password</label>
+              <input type="password" name="password2" class="border border-1 form-control w-100 mx-auto rounded-1" id="password2" value="....." required>
+            </div>
+            
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div> 
+        <div class="d-grid col-6 mx-auto text-center my-3">
+          <button type="submit" class="btn btn-sm btn-light btn_submit bg-gradient border border-light mx-auto fw-light mb-2" data-bs-toggle="button" style=" width: 180px; background-color: #aa2 !important;" id="create" name="create" type="post">Create Your Account</button>
+        </div>
+    </form>
+   </body>
+   <style>
+    .alert-formy{
+      color: #c40000 !important;
+      font-size: .7rem !important;
+    }
+   </style>
+   <%- include('./partials/signupJS') %>
+   <%- include('./partials/footerLogSignIn') %>
+   </html>
+   
